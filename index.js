@@ -13,6 +13,9 @@ console.log(renderer)
 //RENDERER TO HTML
 // On définit la taille que l'on souhaite rendre, ici la totalité de l'écran donc innerWidth en largeur et innerHeight en hauteur
 renderer.setSize(innerWidth, innerHeight)
+//Pour éviter d'avoir des bords en escalier, une mauvaise résolution sur les edges de nos objets, une pixellisation (Reduce the jagginess)
+//On indique à three.js le ratio de nos pixels sur notre device
+renderer.setPixelRatio(devicePixelRatio)
 // On injecte notre renderer dans le body de notre page HTML pour qu'il soit visible. Il sera visible dans une balise canvas
 document.body.appendChild(renderer.domElement)
 
@@ -36,4 +39,11 @@ scene.add(mesh)
 camera.position.z = 5
 
 //RENDER THE BIG SCENE
-renderer.render(scene, camera)
+// On créé une loupe pour que la fonction soit appelée en continu et refresh les animations à la meme fréquence que le moniteur
+const animate = () => {
+    requestAnimationFrame(animate)
+    renderer.render(scene, camera)
+    mesh.rotation.x += 0.01
+}
+animate()
+
