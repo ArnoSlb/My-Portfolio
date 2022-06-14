@@ -21,23 +21,6 @@ renderer.setPixelRatio(devicePixelRatio)
 document.body.appendChild(renderer.domElement)
 
 
-//CUBE
-const boxGeometry = new THREE.
-//BoxGeometry prend 3 arguments(largeur, profondeur, hauteur)
-    BoxGeometry(1, 1, 1)
-    console.log(boxGeometry)
-// Pour le voir, nous avons besoin de rajouter un mesh
-const material = new THREE.
-//MeshBasicMaterial prend un argument d'un objet, et dans cet objet on peut spécifier la couleur
-    MeshBasicMaterial({color: 0x00FF00})
-    console.log(material)
-// On assemble le meshBasic et la geometrie pour avoir le mesh final
-const mesh = new THREE.Mesh(boxGeometry, material)
-console.log(mesh)
-// On ajoute le mesh final à la scene
-scene.add(mesh)
-
-
 //PLAN
 const planeGeometry = new THREE.
 // PlaneGeomtry prend 4 arguments (largeur, hauteur, nmbre de segments en largeur et en hauteur)
@@ -51,7 +34,7 @@ const planeMaterial = new THREE.
         //On demande à Three JS de rendre les 2 cotés du plan, autrement par soucis de performance il n'en rendra qu'un seul
         side: THREE.DoubleSide
     })
-    console.log(material)
+    console.log(planeMaterial)
 // On assemble le meshBasic et la geometrie pour avoir le mesh final
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
 console.log(planeMesh)
@@ -69,8 +52,6 @@ camera.position.z = 5
 const animate = () => {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    mesh.rotation.x += 0.01
-    mesh.rotation.y += 0.01
     planeMesh.rotation.x += 0.01
 }
 animate()
