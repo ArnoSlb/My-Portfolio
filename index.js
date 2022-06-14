@@ -1,6 +1,8 @@
 import * as THREE from '/node_modules/three/build/three.module.js';
 import * as dat from '/node_modules/dat.gui/build/dat.gui.module.js';
 
+import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
+
 //GUI
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
 // console.log(dat)
@@ -143,6 +145,8 @@ scene.add(light)
 //CAMERA
 // On deplace la camera de 5 unités pour qu'elle ne soit pas au centre de la scene et qu'on puisse voir nos objets
 camera.position.z = 5
+//OrbitsCOntrols prend 2 arguments, la camera que l'on souhaite utliser et le renderer que l'on utilise
+const controls = new OrbitControls( camera, renderer.domElement );
 
 
 //RENDER THE BIG SCENE
