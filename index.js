@@ -1,4 +1,73 @@
 import * as THREE from '/node_modules/three/build/three.module.js';
+import * as dat from '/node_modules/dat.gui/build/dat.gui.module.js';
+
+//GUI
+//On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
+// console.log(dat)
+const gui = new dat.GUI()
+// console.log(gui)
+// On choisit/selectionne les parametres que l'on souhaite controler facilement grace à GUI
+const world = {
+    plane: {
+        //on définit les valeurs par défault
+        width: 5,
+        height: 5,
+        widthSegments: 10,
+        heightSegments: 10
+    }
+}
+
+//GUI WIDTH
+//On associe la valeur de width de plane qui est égale à 10, au string "width", le 3e argument est le minimum autorisé et le 4e le max
+gui.add(world.plane, 'width', 1, 20).
+//On définit une fonction que l'on appelle à chaque fois que la valeur "width" est modifié
+    onChange(generatePlane)
+
+//GUI HEIGHT
+//On associe la valeur de width de plane qui est égale à 10, au string "height", le 3e argument est le minimum autorisé et le 4e le max
+gui.add(world.plane, 'height', 1, 20).
+//On définit une fonction que l'on appelle à chaque fois que la valeur "height" est modifié
+    onChange(generatePlane)
+
+//GUI WIDTHSEGMENTS
+//On associe la valeur de width de plane qui est égale à 10, au string "widthSegments", le 3e argument est le minimum autorisé et le 4e le max
+gui.add(world.plane, 'widthSegments', 1, 50).
+//On définit une fonction que l'on appelle à chaque fois que la valeur "widthSegments" est modifié
+    onChange(generatePlane)
+
+//GUI HEIGHT
+//On associe la valeur de width de plane qui est égale à 10, au string "heightSegments", le 3e argument est le minimum autorisé et le 4e le max
+gui.add(world.plane, 'heightSegments', 1, 50).
+//On définit une fonction que l'on appelle à chaque fois que la valeur "heightSegments" est modifié
+    onChange(generatePlane)
+
+function generatePlane(){
+    //On enleve/supprime le planeMesh de la scène
+    planeMesh.geometry.dispose()
+    // On recrée le nouveau planeMesh avec les nouvelles valeurs
+    planeMesh.geometry = new THREE.
+        PlaneGeometry(
+            world.plane.width, 
+            world.plane.height, 
+            world.plane.widthSegments, 
+            world.plane.heightSegments
+        )
+
+
+    //RE-UTILISE le bloc de code qui vient de plus bas pour obtenir nos différences de positions aléatoires
+    // On boucle sur ce tableau le nombre de fois qu'il y a d'index, 1 index sur 3 car on veut traiter 1 point à la fois
+    const {array} = planeMesh.geometry.attributes.position
+    for (let i = 0; i < array.length; i+= 3){
+        // console.log(i)
+        const x = array[i]
+        const y = array[i+1]
+        const z = array[i+2]
+        console.log(array[i])
+
+    //Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
+        array[i+2] = z + Math.random()
+    }
+}
 
 const scene = new THREE.Scene();
 const camera = new THREE.
