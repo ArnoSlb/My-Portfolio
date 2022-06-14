@@ -9,3 +9,8 @@ const renderer = new THREE.WebGLRenderer()
 console.log(scene)
 console.log(camera)
 console.log(renderer)
+
+// On définit la taille que l'on souhaite rendre, ici la totalité de l'écran donc innerWidth en largeur et innerHeight en hauteur
+renderer.setSize(innerWidth, innerHeight)
+// On injecte notre renderer dans le body de notre page HTML pour qu'il soit visible. Il sera visible dans une balise canvas
+document.body.appendChild(renderer.domElement)
