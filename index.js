@@ -28,8 +28,9 @@ const planeGeometry = new THREE.
     console.log(planeGeometry)
 // Pour le voir, nous avons besoin de rajouter un mesh
 const planeMaterial = new THREE.
-//MeshBasicMaterial prend un argument d'un objet, et dans cet objet on peut spécifier la couleur
-    MeshBasicMaterial({
+//MeshPhongMaterial prend un argument d'un objet, et dans cet objet on peut spécifier la couleur. A la difference du basic ce mesh reagit à la lumiere. 
+// !!! IL FAUT DONC AJOUTER DE LA LUMIERE A LA SCENE SINON ON NE VOIT RIEN !!!
+    MeshPhongMaterial({
         color: 0xFF0000,
         //On demande à Three JS de rendre les 2 cotés du plan, autrement par soucis de performance il n'en rendra qu'un seul
         side: THREE.DoubleSide
@@ -42,6 +43,16 @@ console.log(planeMesh)
 scene.add(planeMesh)
 
 
+//LIGHTS
+const light = new THREE.
+// Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
+    DirectionalLight(0xffffff, 1)
+//On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
+light.position.set(0, 0, 1)
+//On ajoute la lumiere à la scène
+scene.add(light)
+
+
 //CAMERA
 // On deplace la camera de 5 unités pour qu'elle ne soit pas au centre de la scene et qu'on puisse voir nos objets
 camera.position.z = 5
@@ -52,7 +63,7 @@ camera.position.z = 5
 const animate = () => {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    planeMesh.rotation.x += 0.01
+    // planeMesh.rotation.x += 0.01
 }
 animate()
 
