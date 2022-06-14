@@ -33,12 +33,30 @@ const planeMaterial = new THREE.
     MeshPhongMaterial({
         color: 0xFF0000,
         //On demande à Three JS de rendre les 2 cotés du plan, autrement par soucis de performance il n'en rendra qu'un seul
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        //Pour voir le reflief avec la lumiere à l'interieur/au milieu de notre mesh et pas seulement sur les cotés 
+        flatShading: THREE.FlatShading
     })
     console.log(planeMaterial)
 // On assemble le meshBasic et la geometrie pour avoir le mesh final
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
 console.log(planeMesh)
+//On selectionne la matrice de point de notre objet planeMesh
+//La position d'un point est definis dans l'array par serie de 3 index {0,1,2}{3,4,5}{6,7,8}...
+//Le premier index correspond au x, le 2e au y et le 3e au z. Pour des raisons d'optimisation ils n'ont pas été mis dans le meme objet avec des sous divisions
+console.log(planeMesh.geometry.attributes.position.array)
+// On boucle sur ce tableau le nombre de fois qu'il y a d'index, 1 index sur 3 car on veut traiter 1 point à la fois
+const {array} = planeMesh.geometry.attributes.position
+for (let i = 0; i < array.length; i+= 3){
+    // console.log(i)
+    const x = array[i]
+    const y = array[i+1]
+    const z = array[i+2]
+    console.log(array[i])
+
+//Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
+    array[i+2] = z + Math.random()
+}
 // On ajoute le mesh final à la scene
 scene.add(planeMesh)
 
