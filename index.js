@@ -9,6 +9,7 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
 // console.log(dat)
 const gui = new dat.GUI()
+document.querySelector('.dg.ac').style.display = "none"
 // console.log(gui)
 // On choisit/selectionne les parametres que l'on souhaite controler facilement grace à GUI
 const world = {
@@ -196,9 +197,9 @@ light.position.set(2, 2, 1)
 scene.add(light)
 const lightBack = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0xffffff, 1)
+    DirectionalLight(0xde9c74, 2)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
-lightBack.position.set(0, 0, -1)
+lightBack.position.set(0, 1, -1)
 //On ajoute la lumiere à la scène
 scene.add(lightBack)
 
@@ -287,9 +288,9 @@ const animate = () => {
             b:.17      
         }
         const hoverColor = {
-            r:.7, 
-            g:.7,
-            b:.7    
+            r:.867, 
+            g:.609,
+            b:.453
         }
         // gsap.to() prend 2 arguments (ce que l'on souhaite animé, les valeurs que l'on souhaite lui donner)
         gsap.to(hoverColor, {
