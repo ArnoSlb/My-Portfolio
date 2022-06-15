@@ -1,7 +1,10 @@
 import * as THREE from '/node_modules/three/build/three.module.js';
 import * as dat from '/node_modules/dat.gui/build/dat.gui.module.js';
+import gsap from '/node_modules/gsap/index.js'
 
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
+
+console.log(gsap)
 
 //GUI
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
@@ -225,6 +228,45 @@ const animate = () => {
 
         // On force le refresh de l'attribut couleur 
         intersects[0].object.geometry.attributes.color.needsUpdate = true
+
+        //On veut que la face qui a changé de couleur retourne immédiatment à sa couleur précédente quand on arrete de la survoler
+        // gsap.to() prend 2 arguments (ce que l'on souhaite animé,)
+        const initalColor = {
+            r:.08, 
+            g:.11,
+            b:.17      
+        }
+        const hoverColor = {
+            r:.34, 
+            g:.43,
+            b:.51      
+        }
+        gsap.to(hoverColor, {
+            r:initalColor.r,
+            g:initalColor.g,
+            b:initalColor.b,
+            onUpdate: () => {
+                //COLOR HOVER passing to geometry
+                //On veut animer la hoverColor
+                // Vertice/vertex 1
+                intersects[0].object.geometry.attributes.color.setX(intersects[0].face.a, hoverColor.r)
+                intersects[0].object.geometry.attributes.color.setY(intersects[0].face.a, hoverColor.g)
+                intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.a, hoverColor.b)
+
+                //vertice/vertex 2
+                intersects[0].object.geometry.attributes.color.setX(intersects[0].face.b, hoverColor.r)
+                intersects[0].object.geometry.attributes.color.setY(intersects[0].face.b, hoverColor.g)
+                intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.b, hoverColor.b)
+
+                //vertice/vertex 3
+                intersects[0].object.geometry.attributes.color.setX(intersects[0].face.c, hoverColor.r)
+                intersects[0].object.geometry.attributes.color.setY(intersects[0].face.c, hoverColor.g)
+                intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.c, hoverColor.b)
+
+                // On force le refresh de l'attribut couleur 
+                intersects[0].object.geometry.attributes.color.needsUpdate = true
+            }
+        })
     }
 }
 animate()
