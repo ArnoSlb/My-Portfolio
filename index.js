@@ -71,6 +71,8 @@ function generatePlane(){
     }
 }
 
+// Le raycaster permet de calculer la trajectoire d'un faiseau laser par rapport aux elements qui l'entoure dans une espace. Par exemple: Mon faisceau mesure 1 pixel de large il a des coordonnées, il va calculer a combier de ? unités il est de toucher un mur.
+const raycaster = new THREE.Raycaster();
 const scene = new THREE.Scene();
 const camera = new THREE.
 // PerspectiveCamera prend 4 arguments (le champ de vision ou field of view en degré, l'aspect ratio de la scene, clipping plane: la distance entre l'objet et la camera dans laquelle il est visible. D'abord la plus proche et ensuite la plus lointaine )
@@ -123,8 +125,7 @@ for (let i = 0; i < array.length; i+= 3){
     const x = array[i]
     const y = array[i+1]
     const z = array[i+2]
-    console.log(array[i])
-
+    // console.log(array[i])
 //Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
     array[i+2] = z + Math.random()
 }
@@ -140,6 +141,26 @@ const light = new THREE.
 light.position.set(0, 0, 1)
 //On ajoute la lumiere à la scène
 scene.add(light)
+const lightBack = new THREE.
+// Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
+    DirectionalLight(0xffffff, 1)
+//On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
+lightBack.position.set(0, 0, -1)
+//On ajoute la lumiere à la scène
+scene.add(lightBack)
+
+
+//HOVER LIGHT
+const mouse = {
+    x: undefined,
+    y: undefined
+}
+addEventListener('mousemove', (event) => {
+    //On normalize les coordonnées de la souris. Dans le naviguateur l'origine des axes (x:0,y:0) est le coin haut/gauche or on a besoin que l'origine soit le centre de notre canvas
+    mouse.x = (event.clientX / innerWidth) * 2 - 1
+    mouse.y = - (event.clientY / innerHeight) * 2 + 1
+    // console.log(mouse)
+})
 
 
 //CAMERA
@@ -154,7 +175,20 @@ const controls = new OrbitControls( camera, renderer.domElement );
 const animate = () => {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    // planeMesh.rotation.x += 0.01
+    
+     // On veut que notre raycaster comprenne notre position en fonction de ou se place la camera, pas seulement de la vue d'en haut
+     //setFromCamera prend 2 arguments (cordonnées normalisé de la souris, la camera utilisé)
+    raycaster.setFromCamera(mouse, camera)
+     // On veut vérifier si notre raycaster rentre en contact avec un objet 3D de la scene, ici notre surface plane
+    const intersects = raycaster.intersectObject(planeMesh)
+    // Quand le raycaster ne rentre pas au contact de notre objet on obtient un tableau vide
+    // Quand le raycaster rentre en contact, le tableau se remplit avec un objet avec des coordonnées 
+    // console.log(intersects)
+    if (intersects.length > 0){
+        console.log('intersecting')
+    }
 }
 animate()
+
+
 
