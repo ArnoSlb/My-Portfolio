@@ -135,7 +135,7 @@ for (let i = 0; i < array.length; i+= 3){
 const colors = []
 // On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
 for (let i = 0; i < planeMesh.geometry.attributes.position.count; i++){
-    colors.push(1, 0, 0)
+    colors.push(0.08, .11, .17)
 }
 
 // On ajoute un attribut au planeMesh en plus de normal, position et uv
@@ -206,21 +206,22 @@ const animate = () => {
         // On change la couleur R avec setX de la face que l'on survole, setX(l'index du groupe que l'on veut sélectionné donc la face, la valeur de Rouge que l'on veut donner à cette face)
         // intersects[0].object.geometry.attributes.color.setX(0, 0)
         //Avec face.a on ne change qu'un seul des 3 cotés qui fait une face. On doit faire de meme pour b et c pour que l'entiereté de notre face change quand on la survole
-
+        
+        //COLOR HOVER
         // Vertice/vertex 1
-        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.a, .8)
-        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.a, .8)
-        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.a, .8)
+        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.a, .34)
+        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.a, .43)
+        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.a, .51)
 
         //vertice/vertex 2
-        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.b, .8)
-        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.b, .8)
-        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.b, .8)
+        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.b, .34)
+        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.b, .43)
+        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.b, .51)
 
         //vertice/vertex 3
-        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.c, .8)
-        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.c, .8)
-        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.c, .8)
+        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.c, .34)
+        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.c, .43)
+        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.c, .51)
 
         // On force le refresh de l'attribut couleur 
         intersects[0].object.geometry.attributes.color.needsUpdate = true
