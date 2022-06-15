@@ -14,8 +14,8 @@ const gui = new dat.GUI()
 const world = {
     plane: {
         //on définit les valeurs par défault
-        width: 19,
-        height: 19,
+        width: 150,
+        height: 130,
         widthSegments: 40,
         heightSegments: 40
     }
@@ -23,25 +23,25 @@ const world = {
 
 //GUI WIDTH
 //On associe la valeur de width de plane qui est égale à 10, au string "width", le 3e argument est le minimum autorisé et le 4e le max
-gui.add(world.plane, 'width', 1, 20).
+gui.add(world.plane, 'width', 1, 400).
 //On définit une fonction que l'on appelle à chaque fois que la valeur "width" est modifié
     onChange(generatePlane)
 
 //GUI HEIGHT
 //On associe la valeur de width de plane qui est égale à 10, au string "height", le 3e argument est le minimum autorisé et le 4e le max
-gui.add(world.plane, 'height', 1, 20).
+gui.add(world.plane, 'height', 1, 400).
 //On définit une fonction que l'on appelle à chaque fois que la valeur "height" est modifié
     onChange(generatePlane)
 
 //GUI WIDTHSEGMENTS
 //On associe la valeur de width de plane qui est égale à 10, au string "widthSegments", le 3e argument est le minimum autorisé et le 4e le max
-gui.add(world.plane, 'widthSegments', 1, 50).
+gui.add(world.plane, 'widthSegments', 1, 100).
 //On définit une fonction que l'on appelle à chaque fois que la valeur "widthSegments" est modifié
     onChange(generatePlane)
 
 //GUI HEIGHT
 //On associe la valeur de width de plane qui est égale à 10, au string "heightSegments", le 3e argument est le minimum autorisé et le 4e le max
-gui.add(world.plane, 'heightSegments', 1, 50).
+gui.add(world.plane, 'heightSegments', 1, 100).
 //On définit une fonction que l'on appelle à chaque fois que la valeur "heightSegments" est modifié
     onChange(generatePlane)
 
@@ -57,7 +57,8 @@ function generatePlane(){
             world.plane.heightSegments
         )
 
-
+    
+    //VERTICE POSITION RANDOM
     //RE-UTILISE le bloc de code qui vient de plus bas pour obtenir nos différences de positions aléatoires
     // On boucle sur ce tableau le nombre de fois qu'il y a d'index, 1 index sur 3 car on veut traiter 1 point à la fois
     const {array} = planeMesh.geometry.attributes.position
@@ -68,10 +69,14 @@ function generatePlane(){
         const z = array[i+2]
         // console.log(array[i])
 
+        array[i] = x + (Math.random() - 0.5)
+        array[i+1] = y + (Math.random() - 0.5)
+        console.log(array[i+1])
     //Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
         array[i+2] = z + Math.random()
     }
 
+    //COLOR ATTRIBUT ADDITION
     const colors = []
     // On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
     for (let i = 0; i < planeMesh.geometry.attributes.position.count; i++){
@@ -136,15 +141,34 @@ const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
 // console.log(planeMesh.geometry.attributes.position.array)
 // On boucle sur ce tableau le nombre de fois qu'il y a d'index, 1 index sur 3 car on veut traiter 1 point à la fois
 const {array} = planeMesh.geometry.attributes.position
-for (let i = 0; i < array.length; i+= 3){
+const randomValues = []
+// On boucle sur le nombre de vertex
+for (let i = 0; i < array.length; i++){
     // console.log(i)
-    const x = array[i]
-    const y = array[i+1]
-    const z = array[i+2]
-    // console.log(array[i])
-//Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
-    array[i+2] = z + Math.random()
+    //On veut que ce code s'execute une fois tous les 3 itérations car les coordonnées marchent par groupe de 3
+    if(i % 3 === 0){
+        const x = array[i]
+        const y = array[i+1]
+        const z = array[i+2]
+        // console.log(array[i])
+        array[i] = x + (Math.random() - 0.5) * 3
+        array[i+1] = y + (Math.random() - 0.5) * 3
+    //Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
+        array[i+2] = z + (Math.random() - 0.5) * 3
+    }
+
+//On ajoute des valeurs aléatoires dans notre tableau
+    randomValues.push(Math.random() - 0.5)
 }
+
+console.log(randomValues)
+
+planeMesh.geometry.attributes.position.randomValues = randomValues
+
+planeMesh.geometry.attributes.position.originalPosition = planeMesh.geometry.attributes.position.array
+
+// console.log(planeMesh.geometry.attributes.position)
+console.log(planeMesh.geometry.attributes.position)
 
 const colors = []
 // On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
@@ -165,9 +189,9 @@ scene.add(planeMesh)
 //LIGHTS
 const light = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0xffffff, 1)
+    DirectionalLight(0x55dddd, 1.2)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
-light.position.set(0, 0, 1)
+light.position.set(1, 2, 1)
 //On ajoute la lumiere à la scène
 scene.add(light)
 const lightBack = new THREE.
@@ -194,16 +218,32 @@ addEventListener('mousemove', (event) => {
 
 //CAMERA
 // On deplace la camera de 5 unités pour qu'elle ne soit pas au centre de la scene et qu'on puisse voir nos objets
-camera.position.z = 5
+camera.position.z = 50
 //OrbitsCOntrols prend 2 arguments, la camera que l'on souhaite utliser et le renderer que l'on utilise
 const controls = new OrbitControls( camera, renderer.domElement );
 
+let frame = 0.01
 
 //RENDER THE BIG SCENE
 // On créé une loupe pour que la fonction soit appelée en continu et refresh les animations à la meme fréquence que le moniteur
 const animate = () => {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
+    frame += .15
+
+    // Ajoute mouvement dans le temps
+    for (let i = 0; i < planeMesh.geometry.attributes.position.array.length; i += 3){
+        // //x
+        array[i] = planeMesh.geometry.attributes.position.originalPosition[i] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i]) * 0.006)
+        // //y
+        array[i+1] = planeMesh.geometry.attributes.position.originalPosition[i+1] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+1]) * 0.005) 
+        // //z
+        array[i+2] = planeMesh.geometry.attributes.position.originalPosition[i+2] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+2]) * 0.0002) 
+        planeMesh.geometry.attributes.position.needsUpdate = true
+
+        // console.log(Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i]) * 0.15)
+    }   
+    
     
      // On veut que notre raycaster comprenne notre position en fonction de ou se place la camera, pas seulement de la vue d'en haut
      //setFromCamera prend 2 arguments (cordonnées normalisé de la souris, la camera utilisé)
@@ -247,9 +287,9 @@ const animate = () => {
             b:.17      
         }
         const hoverColor = {
-            r:.34, 
-            g:.43,
-            b:.51      
+            r:.7, 
+            g:.7,
+            b:.7    
         }
         // gsap.to() prend 2 arguments (ce que l'on souhaite animé, les valeurs que l'on souhaite lui donner)
         gsap.to(hoverColor, {
