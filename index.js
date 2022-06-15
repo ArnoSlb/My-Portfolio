@@ -15,7 +15,7 @@ const world = {
     plane: {
         //on définit les valeurs par défault
         width: 150,
-        height: 130,
+        height: 150,
         widthSegments: 40,
         heightSegments: 40
     }
@@ -189,9 +189,9 @@ scene.add(planeMesh)
 //LIGHTS
 const light = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0x55dddd, 1.2)
+    DirectionalLight(0xffffff, .9)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
-light.position.set(1, 2, 1)
+light.position.set(2, 2, 1)
 //On ajoute la lumiere à la scène
 scene.add(light)
 const lightBack = new THREE.
