@@ -4,7 +4,6 @@ import gsap from '/node_modules/gsap/index.js'
 
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
 
-console.log(gsap)
 
 //GUI
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
@@ -15,10 +14,10 @@ const gui = new dat.GUI()
 const world = {
     plane: {
         //on définit les valeurs par défault
-        width: 5,
-        height: 5,
-        widthSegments: 10,
-        heightSegments: 10
+        width: 19,
+        height: 19,
+        widthSegments: 40,
+        heightSegments: 40
     }
 }
 
@@ -67,11 +66,23 @@ function generatePlane(){
         const x = array[i]
         const y = array[i+1]
         const z = array[i+2]
-        console.log(array[i])
+        // console.log(array[i])
 
     //Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
         array[i+2] = z + Math.random()
     }
+
+    const colors = []
+    // On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
+    for (let i = 0; i < planeMesh.geometry.attributes.position.count; i++){
+        colors.push(0.08, .11, .17)
+    }
+
+    // On ajoute un attribut au planeMesh en plus de normal, position et uv
+    // console.log(planeMesh.geometry.attributes)
+    // On fait en sorte d'avoir une structure similaire au autres attribut avec buffer attribute et float32array([r,g,b]), nombre de valeur qui constitue un groupe)))
+    // Ici on définit la couleur pour un seul point
+    planeMesh.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3))
 }
 
 // Le raycaster permet de calculer la trajectoire d'un faiseau laser par rapport aux elements qui l'entoure dans une espace. Par exemple: Mon faisceau mesure 1 pixel de large il a des coordonnées, il va calculer a combier de ? unités il est de toucher un mur.
@@ -82,9 +93,9 @@ const camera = new THREE.
     PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000)
 const renderer = new THREE.WebGLRenderer()
 
-console.log(scene)
-console.log(camera)
-console.log(renderer)
+// console.log(scene)
+// console.log(camera)
+// console.log(renderer)
 
 
 //RENDERER TO HTML
@@ -100,8 +111,8 @@ document.body.appendChild(renderer.domElement)
 //PLAN
 const planeGeometry = new THREE.
 // PlaneGeomtry prend 4 arguments (largeur, hauteur, nmbre de segments en largeur et en hauteur)
-    PlaneGeometry(5,5, 10, 10)
-    console.log(planeGeometry)
+    PlaneGeometry(world.plane.width, world.plane.height, world.plane.widthSegments, world.plane.heightSegments)
+    // console.log(planeGeometry)
 // Pour le voir, nous avons besoin de rajouter un mesh
 const planeMaterial = new THREE.
 //MeshPhongMaterial prend un argument d'un objet, et dans cet objet on peut spécifier la couleur. A la difference du basic ce mesh reagit à la lumiere. 
@@ -115,14 +126,14 @@ const planeMaterial = new THREE.
         //On specifie que l'on veut utiliser le nouvel attribut couleur que l'on définit plus bas pour le hover light
         vertexColors: true
     })
-    console.log(planeMaterial)
+    // console.log(planeMaterial)
 // On assemble le meshBasic et la geometrie pour avoir le mesh final
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial)
-console.log(planeMesh)
+// console.log(planeMesh)
 //On selectionne la matrice de point de notre objet planeMesh
 //La position d'un point est definis dans l'array par serie de 3 index {0,1,2}{3,4,5}{6,7,8}...
 //Le premier index correspond au x, le 2e au y et le 3e au z. Pour des raisons d'optimisation ils n'ont pas été mis dans le meme objet avec des sous divisions
-console.log(planeMesh.geometry.attributes.position.array)
+// console.log(planeMesh.geometry.attributes.position.array)
 // On boucle sur ce tableau le nombre de fois qu'il y a d'index, 1 index sur 3 car on veut traiter 1 point à la fois
 const {array} = planeMesh.geometry.attributes.position
 for (let i = 0; i < array.length; i+= 3){
@@ -204,8 +215,8 @@ const animate = () => {
     // console.log(intersects)
     if (intersects.length > 0){
         // console.log('intersecting')
-        console.log(intersects[0].object.geometry.attributes.color)
-        console.log(intersects[0].face)
+        // console.log(intersects[0].object.geometry.attributes.color)
+        // console.log(intersects[0].face)
         // On change la couleur R avec setX de la face que l'on survole, setX(l'index du groupe que l'on veut sélectionné donc la face, la valeur de Rouge que l'on veut donner à cette face)
         // intersects[0].object.geometry.attributes.color.setX(0, 0)
         //Avec face.a on ne change qu'un seul des 3 cotés qui fait une face. On doit faire de meme pour b et c pour que l'entiereté de notre face change quand on la survole
@@ -230,7 +241,6 @@ const animate = () => {
         intersects[0].object.geometry.attributes.color.needsUpdate = true
 
         //On veut que la face qui a changé de couleur retourne immédiatment à sa couleur précédente quand on arrete de la survoler
-        // gsap.to() prend 2 arguments (ce que l'on souhaite animé,)
         const initalColor = {
             r:.08, 
             g:.11,
@@ -241,6 +251,7 @@ const animate = () => {
             g:.43,
             b:.51      
         }
+        // gsap.to() prend 2 arguments (ce que l'on souhaite animé, les valeurs que l'on souhaite lui donner)
         gsap.to(hoverColor, {
             r:initalColor.r,
             g:initalColor.g,
