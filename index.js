@@ -104,11 +104,13 @@ const planeMaterial = new THREE.
 //MeshPhongMaterial prend un argument d'un objet, et dans cet objet on peut spécifier la couleur. A la difference du basic ce mesh reagit à la lumiere. 
 // !!! IL FAUT DONC AJOUTER DE LA LUMIERE A LA SCENE SINON ON NE VOIT RIEN !!!
     MeshPhongMaterial({
-        color: 0xFF0000,
+        // color: 0xFF0000,
         //On demande à Three JS de rendre les 2 cotés du plan, autrement par soucis de performance il n'en rendra qu'un seul
         side: THREE.DoubleSide,
         //Pour voir le reflief avec la lumiere à l'interieur/au milieu de notre mesh et pas seulement sur les cotés 
-        flatShading: THREE.FlatShading
+        flatShading: THREE.FlatShading,
+        //On specifie que l'on veut utiliser le nouvel attribut couleur que l'on définit plus bas pour le hover light
+        vertexColors: true
     })
     console.log(planeMaterial)
 // On assemble le meshBasic et la geometrie pour avoir le mesh final
@@ -129,6 +131,19 @@ for (let i = 0; i < array.length; i+= 3){
 //Pour chaque valeur Z de chaque point, on ajoute à sa position intiale un nombre aléatoire
     array[i+2] = z + Math.random()
 }
+
+const colors = []
+// On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
+for (let i = 0; i < planeMesh.geometry.attributes.position.count; i++){
+    colors.push(1, 0, 0)
+}
+
+// On ajoute un attribut au planeMesh en plus de normal, position et uv
+// console.log(planeMesh.geometry.attributes)
+// On fait en sorte d'avoir une structure similaire au autres attribut avec buffer attribute et float32array([r,g,b]), nombre de valeur qui constitue un groupe)))
+// Ici on définit la couleur pour un seul point
+planeMesh.geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3))
+
 // On ajoute le mesh final à la scene
 scene.add(planeMesh)
 
@@ -185,7 +200,30 @@ const animate = () => {
     // Quand le raycaster rentre en contact, le tableau se remplit avec un objet avec des coordonnées 
     // console.log(intersects)
     if (intersects.length > 0){
-        console.log('intersecting')
+        // console.log('intersecting')
+        console.log(intersects[0].object.geometry.attributes.color)
+        console.log(intersects[0].face)
+        // On change la couleur R avec setX de la face que l'on survole, setX(l'index du groupe que l'on veut sélectionné donc la face, la valeur de Rouge que l'on veut donner à cette face)
+        // intersects[0].object.geometry.attributes.color.setX(0, 0)
+        //Avec face.a on ne change qu'un seul des 3 cotés qui fait une face. On doit faire de meme pour b et c pour que l'entiereté de notre face change quand on la survole
+
+        // Vertice/vertex 1
+        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.a, .8)
+        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.a, .8)
+        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.a, .8)
+
+        //vertice/vertex 2
+        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.b, .8)
+        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.b, .8)
+        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.b, .8)
+
+        //vertice/vertex 3
+        intersects[0].object.geometry.attributes.color.setX(intersects[0].face.c, .8)
+        intersects[0].object.geometry.attributes.color.setY(intersects[0].face.c, .8)
+        intersects[0].object.geometry.attributes.color.setZ(intersects[0].face.c, .8)
+
+        // On force le refresh de l'attribut couleur 
+        intersects[0].object.geometry.attributes.color.needsUpdate = true
     }
 }
 animate()
