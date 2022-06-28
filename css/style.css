@@ -1,10 +1,10 @@
 @font-face {
-    font-family: "gratisan";
-    src: url("../Gratisan.ttf") format("truetype"),
+    font-family: "heaters";
+    src: url("../heaters/Heaters.otf") format("opentype"),
 }
 
 body{
-    /* -webkit-font-smoothing: antialiased; */
+    -webkit-font-smoothing: antialiased;
     background-color: noir !important;
 }
 
@@ -24,7 +24,7 @@ body{
     color: white;
     font-family: 'Mukta', sans-serif;
     font-size: 25px;
-    margin: 3px;
+    margin: 8px 3px;
 }
 
 .name :last-child{
@@ -32,9 +32,8 @@ body{
 }
 
 .homepage_portfolio{
-    color: #de9c74;
-    font-size: 30px;
-    font-family: "gratisan";
+  width: 50vw;
+  cursor: none;
 }
 
 button{

@@ -15,10 +15,10 @@ document.querySelector('.dg.ac').style.display = "none"
 const world = {
     plane: {
         //on définit les valeurs par défault
-        width: 150,
-        height: 150,
-        widthSegments: 40,
-        heightSegments: 40
+        width: 1000,
+        height: 1000,
+        widthSegments: 55,
+        heightSegments: 75
     }
 }
 
@@ -97,7 +97,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.
 // PerspectiveCamera prend 4 arguments (le champ de vision ou field of view en degré, l'aspect ratio de la scene, clipping plane: la distance entre l'objet et la camera dans laquelle il est visible. D'abord la plus proche et ensuite la plus lointaine )
     PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000)
-const renderer = new THREE.WebGLRenderer()
+const renderer = new THREE.WebGLRenderer({antialias:true})
 
 // console.log(scene)
 // console.log(camera)
@@ -174,7 +174,7 @@ console.log(planeMesh.geometry.attributes.position)
 const colors = []
 // On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
 for (let i = 0; i < planeMesh.geometry.attributes.position.count; i++){
-    colors.push(0.08, .11, .17)
+    colors.push(0.25, .26, .33)
 }
 
 // On ajoute un attribut au planeMesh en plus de normal, position et uv
@@ -190,18 +190,25 @@ scene.add(planeMesh)
 //LIGHTS
 const light = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0xffffff, .9)
+    DirectionalLight(0xffffff, .85)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
 light.position.set(2, 2, 1)
 //On ajoute la lumiere à la scène
 scene.add(light)
-const lightBack = new THREE.
+const redlightBack = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0xde9c74, 2)
+    DirectionalLight(0xff0000, 2)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
-lightBack.position.set(0, 1, -1)
+redlightBack.position.set(3, 1, -1)
 //On ajoute la lumiere à la scène
-scene.add(lightBack)
+scene.add(redlightBack)
+const bluelightBack = new THREE.
+// Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
+    DirectionalLight(0x0000ff, 2)
+//On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
+bluelightBack.position.set(-3, 1, -1)
+//On ajoute la lumiere à la scène
+scene.add(bluelightBack)
 
 
 //HOVER LIGHT
@@ -219,7 +226,7 @@ addEventListener('mousemove', (event) => {
 
 //CAMERA
 // On deplace la camera de 5 unités pour qu'elle ne soit pas au centre de la scene et qu'on puisse voir nos objets
-camera.position.z = 50
+camera.position.z = 250
 //OrbitsCOntrols prend 2 arguments, la camera que l'on souhaite utliser et le renderer que l'on utilise
 const controls = new OrbitControls( camera, renderer.domElement );
 
@@ -235,11 +242,11 @@ const animate = () => {
     // Ajoute mouvement dans le temps
     for (let i = 0; i < planeMesh.geometry.attributes.position.array.length; i += 3){
         // //x
-        array[i] = planeMesh.geometry.attributes.position.originalPosition[i] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i]) * 0.006)
+        array[i] = planeMesh.geometry.attributes.position.originalPosition[i] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i]) * 0.036)
         // //y
-        array[i+1] = planeMesh.geometry.attributes.position.originalPosition[i+1] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+1]) * 0.005) 
+        array[i+1] = planeMesh.geometry.attributes.position.originalPosition[i+1] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+1]) * 0.02) 
         // //z
-        array[i+2] = planeMesh.geometry.attributes.position.originalPosition[i+2] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+2]) * 0.0002) 
+        array[i+2] = planeMesh.geometry.attributes.position.originalPosition[i+2] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+2]) * 0.015) 
         planeMesh.geometry.attributes.position.needsUpdate = true
 
         // console.log(Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i]) * 0.15)
@@ -283,9 +290,9 @@ const animate = () => {
 
         //On veut que la face qui a changé de couleur retourne immédiatment à sa couleur précédente quand on arrete de la survoler
         const initalColor = {
-            r:.08, 
-            g:.11,
-            b:.17      
+            r:.25, 
+            g:.26,
+            b:.33      
         }
         const hoverColor = {
             r:.867, 
