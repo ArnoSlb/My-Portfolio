@@ -290,7 +290,7 @@ const animate = () => {
         // //y
         array[i+1] = planeMesh.geometry.attributes.position.originalPosition[i+1] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+1]) * 0.02) 
         // //z
-        array[i+2] = planeMesh.geometry.attributes.position.originalPosition[i+2] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+2]) * 0.015) 
+        array[i+2] = planeMesh.geometry.attributes.position.originalPosition[i+2] + (Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i+2]) * 0.01) 
         planeMesh.geometry.attributes.position.needsUpdate = true
 
         // console.log(Math.cos(frame * planeMesh.geometry.attributes.position.randomValues[i]) * 0.15)
@@ -382,5 +382,23 @@ learnMoreBtn.addEventListener('click', () => {
     homePageContent.classList.add('fade-out')
     setTimeout(() => {
         homePageContent.style.display = "none"
+        //On ajoute une animation à la camera en lui donnant de nouvelle coordonnées
+        gsap.to(camera.position, {
+            z: 50,
+            //On lisee la vitesse en entrée et sortie
+            // si expo.inOut est trop fort on peut utiliser power3.inOut
+            ease: 'power3.inOut',
+            // On determine une durée pour l'animation
+            duration: 1.5
+        })
+        gsap.to(camera.rotation, {
+            // valeur en Radian !!!! et pas degré
+            //3.14 = 180deg
+            x: 1.37,
+            y: -.9,
+            z: 1,
+            ease: 'power3.inOut',
+            duration: 1.5
+        })
       }, "1200")
 })
