@@ -5,6 +5,10 @@ import gsap from '/node_modules/gsap/index.js'
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
 
 
+const learnMoreBtn = document.querySelector('.learn-more')
+const homePageContent = document.getElementById('homepage_content')
+
+
 //GUI
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
 // console.log(dat)
@@ -211,6 +215,46 @@ bluelightBack.position.set(-3, 1, -1)
 scene.add(bluelightBack)
 
 
+// STARS
+// On créé le mesh pour les étoiles
+const starGeometry = new THREE.
+    BufferGeometry()
+// On a joute le material qui avec avec
+// PointsMaterial prend un argument sous forme d'objet
+const starMaterial = new THREE.
+    PointsMaterial({
+        color: 0xffffff
+    })
+console.log(starGeometry)
+console.log(starMaterial)
+
+//On créé un tableau vide
+const starVerticies = []
+// On remplit ce tableau avec 10 000 points
+for (let i = 0; i < 10000; i ++) {
+    // On veut une valeur comprise entre -1000 et +1000
+    const x = (Math.random() - 0.5) * 2000
+    const y = (Math.random() - 0.5) * 2000
+    const z = (Math.random() - 1.02) * 2000
+    console.log(x, y, z)
+    starVerticies.push(x,y,z)
+}
+console.log(starVerticies)
+
+// On transfere nos points random vers l'attribut position de notre star geometry 
+// avec une norme Float32BUfferAttribute pour qu'il soit compris par l'attribut de notre geometry
+// et on lui précise qu'il faut "3" valeurs pour créer une position
+starGeometry.setAttribute('position', new THREE.
+    Float32BufferAttribute(starVerticies, 3)
+)
+
+// Maintenant qu'on a une starGeometry remplit de plusieurs points et une startMaterial prete
+// on peut les combiner ensemble
+const stars = new THREE.Points(starGeometry, starMaterial)
+//On ajoute les stars à la scène
+scene.add(stars)
+
+
 //HOVER LIGHT
 const mouse = {
     x: undefined,
@@ -327,8 +371,16 @@ const animate = () => {
             }
         })
     }
+
+    stars.rotation.z +=0.0002
 }
 animate()
 
 
-
+//Event Listener
+learnMoreBtn.addEventListener('click', () => {
+    homePageContent.classList.add('fade-out')
+    setTimeout(() => {
+        homePageContent.style.display = "none"
+      }, "1200")
+})
