@@ -7,6 +7,7 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
 
 const learnMoreBtn = document.querySelector('.learn-more')
 const homePageContent = document.getElementById('homepage_content')
+const headerPortfolio = document.getElementById('header_portfolio')
 
 
 //GUI
@@ -22,7 +23,7 @@ const world = {
         width: 1000,
         height: 1000,
         widthSegments: 55,
-        heightSegments: 75
+        heightSegments: 55
     }
 }
 
@@ -100,7 +101,7 @@ const raycaster = new THREE.Raycaster();
 const scene = new THREE.Scene();
 const camera = new THREE.
 // PerspectiveCamera prend 4 arguments (le champ de vision ou field of view en degré, l'aspect ratio de la scene, clipping plane: la distance entre l'objet et la camera dans laquelle il est visible. D'abord la plus proche et ensuite la plus lointaine )
-    PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000)
+    PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1700)
 const renderer = new THREE.WebGLRenderer({antialias:true})
 
 // console.log(scene)
@@ -201,14 +202,14 @@ light.position.set(2, 2, 1)
 scene.add(light)
 const redlightBack = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0xff0000, 2)
+    DirectionalLight(0xff8841, 2)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
 redlightBack.position.set(3, 1, -1)
 //On ajoute la lumiere à la scène
 scene.add(redlightBack)
 const bluelightBack = new THREE.
 // Directional Light prend 2 arguments(la couleur de la lumiere (hexadécimal) et l'intensité de la lumiere(entre 0 et 1))
-    DirectionalLight(0x0000ff, 2)
+    DirectionalLight(0x03492c, 2)
 //On positionne la lumiere pour qu'elle ne soit plus au mileu de la scène. set() prend 3 arguemnts(x, y, z)
 bluelightBack.position.set(-3, 1, -1)
 //On ajoute la lumiere à la scène
@@ -385,7 +386,7 @@ learnMoreBtn.addEventListener('click', () => {
         //On ajoute une animation à la camera en lui donnant de nouvelle coordonnées
         gsap.to(camera.position, {
             z: 50,
-            //On lisee la vitesse en entrée et sortie
+            //On lisse la vitesse en entrée et sortie
             // si expo.inOut est trop fort on peut utiliser power3.inOut
             ease: 'power3.inOut',
             // On determine une durée pour l'animation
@@ -400,5 +401,8 @@ learnMoreBtn.addEventListener('click', () => {
             ease: 'power3.inOut',
             duration: 1.5
         })
-      }, "1200")
+    }, "1200")
+    setTimeout(() => {
+        headerPortfolio.classList.add('fade-in')
+    }, "2000")
 })

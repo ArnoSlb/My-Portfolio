@@ -6,6 +6,8 @@
 body{
     -webkit-font-smoothing: antialiased;
     background-color: noir !important;
+    font-family: 'Mukta', sans-serif;
+    color: white;
 }
 
 #homepage_content{
@@ -21,8 +23,6 @@ body{
 }
 
 .name h3{
-    color: white;
-    font-family: 'Mukta', sans-serif;
     font-size: 25px;
     margin: 8px 3px;
 }
@@ -52,10 +52,32 @@ button{
 }
 
 button:hover{
-    -webkit-animation: fade-in 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-            animation: fade-in 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    -webkit-animation: fade-color 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            animation: fade-color 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
     color: black;
     border: 1px solid black;
+    cursor: pointer;
+}
+
+#header_portfolio{
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  text-align: center;
+  font-weight: bold;
+  opacity: 0;
+}
+
+#header_portfolio ul{
+  display: flex;
+  width: 50vw;
+  justify-content: space-around;
+}
+
+#header_portfolio li:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .tracking-in-expand-fwd {
@@ -71,6 +93,11 @@ button:hover{
 .fade-out {
 	-webkit-animation: fade-out 1s ease-out both;
 	        animation: fade-out 1s ease-out both;
+}
+
+.fade-in {
+	-webkit-animation: fade-in 1s ease-out both;
+	        animation: fade-in 1s ease-out both;
 }
 
 
@@ -120,7 +147,7 @@ button:hover{
     }
   }
 
-  @-webkit-keyframes fade-in {
+  @-webkit-keyframes fade-color {
     0% {
       background-color: #de9d7400;
     }
@@ -128,7 +155,7 @@ button:hover{
         background-color: #de9c74;
     }
   }
-  @keyframes fade-in {
+  @keyframes fade-color {
     0% {
         background-color: #de9d7400;
     }
@@ -187,6 +214,29 @@ button:hover{
   }
   100% {
     opacity: 0;
+  }
+}
+
+
+/**
+ * ----------------------------------------
+ * animation fade-in
+ * ----------------------------------------
+ */
+ @-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
