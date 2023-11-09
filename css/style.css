@@ -80,6 +80,27 @@ button:hover{
   cursor: pointer;
 }
 
+#about_me{
+  position: absolute;
+  top: 40%;
+  left: 73%;
+  transform: translate(-50%, -50%);
+  text-align: right;
+  opacity: 0;
+  width: 40vw;
+  font-size: 18px;
+}
+
+#about_me h2{
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 80px 0 20px;
+}
+
+#about_me p{
+  padding: 10px 0;
+}
+
 .tracking-in-expand-fwd {
 	-webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 	        animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;

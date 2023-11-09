@@ -8,7 +8,7 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
 const learnMoreBtn = document.querySelector('.learn-more')
 const homePageContent = document.getElementById('homepage_content')
 const headerPortfolio = document.getElementById('header_portfolio')
-
+const aboutMe = document.getElementById('about_me')
 
 //GUI
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
@@ -405,4 +405,7 @@ learnMoreBtn.addEventListener('click', () => {
     setTimeout(() => {
         headerPortfolio.classList.add('fade-in')
     }, "2000")
+    setTimeout(() => {
+        aboutMe.classList.add('fade-in')
+    }, "3100")
 })
