@@ -89,6 +89,10 @@ button:hover{
   opacity: 0;
   width: 40vw;
   font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #about_me h2{
@@ -100,6 +104,30 @@ button:hover{
 #about_me p{
   padding: 10px 0;
 }
+
+#skills_container{
+  display: flex;
+  width: 70%;
+  max-width: 400px;
+  flex-wrap: wrap;
+  justify-content: right;
+  /* background-color: #de9c74; */
+}
+
+.skill_language{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  width: 40%;
+  max-width: 55px;
+  padding: 10px
+}
+
+
 
 .tracking-in-expand-fwd {
 	-webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
