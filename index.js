@@ -4,11 +4,14 @@ import gsap from '/node_modules/gsap/index.js'
 
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
 
-
+var currentPage = ""
 const learnMoreBtn = document.querySelector('.learn-more')
 const homePageContent = document.getElementById('homepage_content')
 const headerPortfolio = document.getElementById('header_portfolio')
 const aboutMe = document.getElementById('about_me')
+const btn_aboutMe = document.getElementById('btn_aboutme')
+const btn_projects = document.getElementById('btn_projects')
+const btn_contacts = document.getElementById('btn_contacts')
 
 //GUI
 //On ajoute gui quie est un controller et qui va nous permettre de tester facilement différentes valeur pour les parametres de facon tres visuels
@@ -377,14 +380,12 @@ const animate = () => {
 }
 animate()
 
-
-//Event Listener
-learnMoreBtn.addEventListener('click', () => {
-    homePageContent.classList.add('fade-out')
-    setTimeout(() => {
-        homePageContent.style.display = "none"
+function cameraGoTo(page) {
+    if (page == 'aboutme'){
         //On ajoute une animation à la camera en lui donnant de nouvelle coordonnées
         gsap.to(camera.position, {
+            x: 0,
+            y: 0,
             z: 50,
             //On lisse la vitesse en entrée et sortie
             // si expo.inOut est trop fort on peut utiliser power3.inOut
@@ -401,6 +402,38 @@ learnMoreBtn.addEventListener('click', () => {
             ease: 'power3.inOut',
             duration: 1.5
         })
+    }
+    if (page == 'projects'){
+        //On ajoute une animation à la camera en lui donnant de nouvelle coordonnées
+        gsap.to(camera.position, {
+            x: -700,
+            y: 100,
+            z: -600,
+            //On lisse la vitesse en entrée et sortie
+            // si expo.inOut est trop fort on peut utiliser power3.inOut
+            ease: 'power3.inOut',
+            // On determine une durée pour l'animation
+            duration: 1.5
+        })
+        gsap.to(camera.rotation, {
+            // valeur en Radian !!!! et pas degré
+            //3.14 = 180deg
+            x: 0,
+            y: -1.5,
+            z: 1.1,
+            ease: 'power3.inOut',
+            duration: 1.5
+        })
+    }
+}
+
+//Event Listener
+learnMoreBtn.addEventListener('click', () => {
+    currentPage = "aboutme"
+    homePageContent.classList.add('fade-out')
+    setTimeout(() => {
+        homePageContent.style.display = "none"
+        cameraGoTo(currentPage)
     }, "1200")
     setTimeout(() => {
         headerPortfolio.classList.add('fade-in')
@@ -408,4 +441,31 @@ learnMoreBtn.addEventListener('click', () => {
     setTimeout(() => {
         aboutMe.classList.add('fade-in')
     }, "3100")
+})
+
+btn_aboutMe.addEventListener('click', () => {
+    if (currentPage == "aboutme"){
+    } else {
+        currentPage = "aboutme"
+        setTimeout(() => {
+            cameraGoTo(currentPage)
+        }, "1200")
+        setTimeout(() => {
+            headerPortfolio.classList.add('fade-in')
+        }, "2000")
+        setTimeout(() => {
+            aboutMe.classList.add('fade-in')
+        }, "3100")
+    }
+})
+
+btn_projects.addEventListener('click', () => {
+    if (currentPage == "projects"){
+    } else {
+        currentPage = "projects"
+        aboutMe.classList.replace('fade-in', 'fade-out')
+        setTimeout(() => {
+            cameraGoTo(currentPage)
+        }, "1200")
+    }
 })
