@@ -9,6 +9,7 @@ const learnMoreBtn = document.querySelector('.learn-more')
 const homePageContent = document.getElementById('homepage_content')
 const headerPortfolio = document.getElementById('header_portfolio')
 const aboutMe = document.getElementById('about_me')
+const projects = document.getElementById('projects')
 const btn_aboutMe = document.getElementById('btn_aboutme')
 const btn_projects = document.getElementById('btn_projects')
 const btn_contacts = document.getElementById('btn_contacts')
@@ -439,6 +440,7 @@ learnMoreBtn.addEventListener('click', () => {
         headerPortfolio.classList.add('fade-in')
     }, "2000")
     setTimeout(() => {
+        aboutMe.style.display = "flex"
         aboutMe.classList.add('fade-in')
     }, "3100")
 })
@@ -454,6 +456,7 @@ btn_aboutMe.addEventListener('click', () => {
             headerPortfolio.classList.add('fade-in')
         }, "2000")
         setTimeout(() => {
+            aboutMe.style.display = "flex"
             aboutMe.classList.add('fade-in')
         }, "3100")
     }
@@ -465,7 +468,12 @@ btn_projects.addEventListener('click', () => {
         currentPage = "projects"
         aboutMe.classList.replace('fade-in', 'fade-out')
         setTimeout(() => {
+            aboutMe.style.display = "none"
             cameraGoTo(currentPage)
         }, "1200")
+        setTimeout(() => {
+            projects.style.display = "flex"
+            projects.classList.add('fade-in')
+        }, "4000")
     }
 })
