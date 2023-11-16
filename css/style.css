@@ -155,6 +155,8 @@ button:hover{
 
 .project_border_img{
   border: 1px solid white;
+  width: 230px;
+  height: 123px;
 }
 
 .project_img:hover{

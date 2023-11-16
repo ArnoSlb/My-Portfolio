@@ -381,6 +381,13 @@ const animate = () => {
 }
 animate()
 
+function goToWebsite(url) {
+    window.open(
+        `${url}`,
+        '_blank' 
+      );
+}
+
 function cameraGoTo(page) {
     if (page == 'aboutme'){
         //On ajoute une animation à la camera en lui donnant de nouvelle coordonnées
@@ -449,6 +456,7 @@ btn_aboutMe.addEventListener('click', () => {
     if (currentPage == "aboutme"){
     } else {
         currentPage = "aboutme"
+        projects.classList.replace('fade-in', 'fade-out')
         setTimeout(() => {
             cameraGoTo(currentPage)
         }, "1200")
@@ -472,8 +480,8 @@ btn_projects.addEventListener('click', () => {
             cameraGoTo(currentPage)
         }, "1200")
         setTimeout(() => {
+            projects.classList.replace('fade-out', 'fade-in')
             projects.style.display = "flex"
-            projects.classList.add('fade-in')
         }, "4000")
     }
 })

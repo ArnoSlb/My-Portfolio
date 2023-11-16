@@ -11,7 +11,6 @@
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;700&display=swap" rel="stylesheet">
@@ -80,18 +79,46 @@
             </div>
         </div>
     </div>
-    <div id="projects">
-        <div class="project_card">
-            <div class="project_border_img">
-                <img class="project_img" src="./projects_img/weather_app.png" alt="weather app">
+    <div id="projects" class="fade-out">
+        <a href="https://weather-app-arnoslb.vercel.app/" target="_blank">
+            <div class="project_card" onclick="">
+                <div class="project_border_img">
+                    <img class="project_img" src="./projects_img/weather_app.png" alt="weather app">
+                </div>
+                <p class="project_title">Weather app</p>
+                <div class="project_skills">
+                    <img class="project_logo" src="./logo/html.png" alt="">
+                    <img class="project_logo" src="./logo/css.png" alt="">
+                    <img class="project_logo" src="./logo/vue.png" alt="">
+                </div>
             </div>
-            <p class="project_title">Weather app</p>
-            <div class="project_skills">
-                <img class="project_logo" src="./logo/html.png" alt="">
-                <img class="project_logo" src="./logo/css.png" alt="">
-                <img class="project_logo" src="./logo/vue.png" alt="">
+        </a>
+        <a href="https://todo-app-with-react-arnoslb.vercel.app" target="_blank">
+            <div class="project_card">
+                <div class="project_border_img">
+                    <img class="project_img" src="./projects_img/todo_app_react.png" alt="todo app">
+                </div>
+                <p class="project_title">Todo app</p>
+                <div class="project_skills">
+                    <img class="project_logo" src="./logo/html.png" alt="">
+                    <img class="project_logo" src="./logo/css.png" alt="">
+                    <img class="project_logo" src="./logo/react.png" alt="">
+                </div>
             </div>
-        </div>
+        </a>
+        <a href="https://todo-app-arnoslb.vercel.app/" target="_blank">
+            <div class="project_card" onclick="">
+                <div class="project_border_img">
+                    <img class="project_img" src="./projects_img/todo_app_vue.png" alt="todo app">
+                </div>
+                <p class="project_title">Todo app</p>
+                <div class="project_skills">
+                    <img class="project_logo" src="./logo/html.png" alt="">
+                    <img class="project_logo" src="./logo/css.png" alt="">
+                    <img class="project_logo" src="./logo/vue.png" alt="">
+                </div>
+            </div>
+        </a>
     </div>
 </body>
 <script type="module" src="./index.js"></script>
