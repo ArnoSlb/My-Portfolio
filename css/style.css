@@ -153,18 +153,13 @@ button:hover{
   flex-direction: column;
 }
 
-.project_border_img{
-  border: 1px solid white;
-  width: 230px;
-  height: 123px;
-}
-
 .project_img:hover{
   cursor: pointer;;
 }
 
 .project_img{
   max-width: 230px;
+  border: 1px solid white;
 }
 
 .project_title{
