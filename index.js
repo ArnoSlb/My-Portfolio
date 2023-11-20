@@ -519,9 +519,9 @@ btn_contacts.addEventListener('click', () => {
             projects.style.display = "none"
             cameraGoTo(currentPage)
         }, "1200")
-        // setTimeout(() => {
-        //     projects.classList.replace('fade-out', 'fade-in')
-        //     projects.style.display = "flex"
-        // }, "4000")
+        setTimeout(() => {
+            contacts.classList.replace('fade-out', 'fade-in')
+            contacts.style.display = "flex"
+        }, "3500")
     }
 })
