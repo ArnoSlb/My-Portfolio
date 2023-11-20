@@ -2,8 +2,6 @@ import * as THREE from '/node_modules/three/build/three.module.js';
 import * as dat from '/node_modules/dat.gui/build/dat.gui.module.js';
 import gsap from '/node_modules/gsap/index.js'
 
-import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
-
 var currentPage = ""
 const learnMoreBtn = document.querySelector('.learn-more')
 const homePageContent = document.getElementById('homepage_content')
@@ -171,14 +169,14 @@ for (let i = 0; i < array.length; i++){
     randomValues.push(Math.random() - 0.5)
 }
 
-console.log(randomValues)
+// console.log(randomValues)
 
 planeMesh.geometry.attributes.position.randomValues = randomValues
 
 planeMesh.geometry.attributes.position.originalPosition = planeMesh.geometry.attributes.position.array
 
 // console.log(planeMesh.geometry.attributes.position)
-console.log(planeMesh.geometry.attributes.position)
+// console.log(planeMesh.geometry.attributes.position)
 
 const colors = []
 // On loupe sur le nombre de groupe (donc de position) qui constite un point, 3 coordonnées = 1 points, 363 coordonnés = 121 points, on loope 121 fois
@@ -230,8 +228,8 @@ const starMaterial = new THREE.
     PointsMaterial({
         color: 0xffffff
     })
-console.log(starGeometry)
-console.log(starMaterial)
+// console.log(starGeometry)
+// console.log(starMaterial)
 
 //On créé un tableau vide
 const starVerticies = []
@@ -241,10 +239,10 @@ for (let i = 0; i < 10000; i ++) {
     const x = (Math.random() - 0.5) * 2000
     const y = (Math.random() - 0.5) * 2000
     const z = (Math.random() - 1.02) * 2000
-    console.log(x, y, z)
+    // console.log(x, y, z)
     starVerticies.push(x,y,z)
 }
-console.log(starVerticies)
+// console.log(starVerticies)
 
 // On transfere nos points random vers l'attribut position de notre star geometry 
 // avec une norme Float32BUfferAttribute pour qu'il soit compris par l'attribut de notre geometry
@@ -276,8 +274,6 @@ addEventListener('mousemove', (event) => {
 //CAMERA
 // On deplace la camera de 5 unités pour qu'elle ne soit pas au centre de la scene et qu'on puisse voir nos objets
 camera.position.z = 250
-//OrbitsCOntrols prend 2 arguments, la camera que l'on souhaite utliser et le renderer que l'on utilise
-const controls = new OrbitControls( camera, renderer.domElement );
 
 let frame = 0.01
 
