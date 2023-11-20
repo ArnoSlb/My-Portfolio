@@ -479,7 +479,10 @@ btn_aboutMe.addEventListener('click', () => {
     } else {
         currentPage = "aboutme"
         projects.classList.replace('fade-in', 'fade-out')
+        contacts.classList.replace('fade-in', 'fade-out')
         setTimeout(() => {
+            projects.style.display = "none"
+            contacts.style.display = "none"
             cameraGoTo(currentPage)
         }, "1200")
         setTimeout(() => {
@@ -497,8 +500,10 @@ btn_projects.addEventListener('click', () => {
     } else {
         currentPage = "projects"
         aboutMe.classList.replace('fade-in', 'fade-out')
+        contacts.classList.replace('fade-in', 'fade-out')
         setTimeout(() => {
             aboutMe.style.display = "none"
+            contacts.style.display = "none"
             cameraGoTo(currentPage)
         }, "1200")
         setTimeout(() => {
