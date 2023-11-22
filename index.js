@@ -1,6 +1,6 @@
-import * as THREE from '/node_modules/three/build/three.module.js';
-import * as dat from '/node_modules/dat.gui/build/dat.gui.module.js';
-import gsap from '/node_modules/gsap/index.js'
+import * as THREE from '/build/three/three.module.js';
+import * as dat from '/build/dat.gui/dat.gui.module.js';
+import gsap from '/build/gsap/index.js'
 
 var currentPage = ""
 const learnMoreBtn = document.querySelector('.learn-more')
