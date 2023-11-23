@@ -139,10 +139,11 @@ button:hover{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 80%;
+  height: 85%;
   width: 80%;
   flex-wrap: wrap;
   justify-content: space-around;
+  overflow-y: auto;
 }
 
 .project_card{
@@ -365,4 +366,29 @@ button:hover{
   }
 }
 
+@media (orientation: portrait) {
 
+  #header_portfolio ul{
+    width: 90vw;
+  }
+
+  #about_me{
+    width: 90vw;
+    max-height: 90vh;
+    margin-top: 100px;
+    left: 50%;
+    text-align: center;
+    font-size: 16px;
+    overflow-y: auto;
+  }
+
+  #skills_container{
+    width: 90vw;
+    font-size: 15px;
+  }
+
+  .logo{
+    width: 33%;
+    padding: 5px
+  }
+}
